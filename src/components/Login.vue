@@ -7,31 +7,36 @@
             <div class="col-lg-4 col-12 mb-5">
                 <main class="form-signin w-100 m-auto">
                   <form @submit.prevent="handleLogin">
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          v-model="username"
-          placeholder="Enter your username"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          v-model="password"
-          placeholder="Enter your password"
-          required
-        />
-      </div>
-      <button type="submit" :disabled="isLoading">
-        {{ isLoading ? "Logging in..." : "Login" }}
-      </button>
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-    </form>
+                    <div class="form-group">
+                      <label for="username">Username:</label>
+                      <input
+                        type="text"
+                        id="username"
+                        v-model="username"
+                        placeholder="Enter your username"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password:</label>
+                      <input
+                        type="password"
+                        id="password"
+                        v-model="password"
+                        placeholder="Enter your password"
+                        required
+                      />
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                      <button type="submit" :disabled="isLoading" class="btn btn-primary">
+                        {{ isLoading ? "Logging in..." : "Login" }}
+                      </button> &nbsp;
+                      <button type="button" class="btn btn-secondary" @click="goToSignUp">
+                        Sign Up
+                      </button>
+                    </div>
+                    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+                  </form>
                 </main>
             </div>
           </div>
@@ -77,6 +82,9 @@ export default {
       } finally {
         this.isLoading = false;
       }
+    },
+    goToSignUp() {
+      this.$router.push("/register");
     },
   },
 };

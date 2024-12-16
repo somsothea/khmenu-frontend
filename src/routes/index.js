@@ -14,6 +14,7 @@ import Terms from '@/pages/Terms.vue'
 import Privacy from '@/pages/Privacy.vue'
 import Contact from '@/pages/Contact.vue'
 import Login from '@/pages/Login.vue'
+import SignUp from '@/pages/SignUp.vue'
 
 const routes = [
     
@@ -31,7 +32,8 @@ const routes = [
     { path: '/term', component: Terms },
     { path: '/privacy', component: Privacy },
     { path: '/contact', component: Contact },
-    { path: '/login', component: Login }
+    { path: '/login', component: Login },
+    { path: '/register', component: SignUp }
   ]
 
   const router = createRouter({
