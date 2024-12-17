@@ -11,14 +11,6 @@
                         <input type="email" name="email" class="form-control rounded-0" placeholder="Email" required />
                     </div>
                     <div class="form-group">
-                        <select class="form-control" id="contact-select" name="inquiry">
-                            <option value="-">Subject</option>
-                            <option value="sales">Sales &amp; Marketing</option>
-                            <option value="creative">Creative Design</option>
-                            <option value="uiux">UI / UX</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <textarea rows="8" name="message" class="form-control rounded-0" placeholder="Message" required></textarea>
                     </div>
 
@@ -30,8 +22,7 @@
             <div class="col-lg-4 col-12 mb-5">
                 <div class="tm-address-col">
                     <h2 class="tm-text-primary mb-5">Our Address</h2>
-                    <p class="tm-mb-50">Quisque eleifend mi et nisi eleifend pretium. Duis porttitor accumsan arcu id rhoncus. Praesent fermentum venenatis ipsum, eget vestibulum purus. </p>
-                    <p class="tm-mb-50">Nulla ut scelerisque elit, in fermentum ante. Aliquam congue mattis erat, eget iaculis enim posuere nec. Quisque risus turpis, tempus in iaculis.</p>
+                    <p class="tm-mb-50">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit eligendi sit, ipsum consectetur fugit ab repellendus nesciunt ducimus non magni sapiente asperiores facilis maxime molestias repellat voluptatem quod enim sunt!</p>
                     <address class="tm-text-gray tm-mb-50">
                         120-240 Fusce eleifend varius tempus<br>
                         Duis consectetur at ligula 10660
@@ -76,7 +67,7 @@
                 <h2 class="tm-text-primary mb-4">Ryan White</h2>
                 <h3 class="tm-text-secondary h5 mb-4">Chief Executive Officer</h3>
                 <p class="mb-4">
-                    Mauris ante tellus, feugiat nec metus non, bibendum semper velit. Praesent laoreet urna id tristique fermentum. Morbi venenatis dui quis diam mollis pellentesque.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat deleniti animi nostrum esse quia excepturi, illo sint nobis nemo! Ipsa.
                 </p>
                 <ul class="tm-social pl-0 mb-0">
                     <li><a href="https://facebook.com"><i class="fab fa-facebook"></i></a></li>
@@ -89,7 +80,7 @@
                 <h2 class="tm-text-primary mb-4">Catherine Pinky</h2>
                 <h3 class="tm-text-secondary h5 mb-4">Chief Marketing Officer</h3>
                 <p class="mb-4">
-                    Sed faucibus nec velit finibus accumsan. Sed varius augue et leo pharetra, in varius lacus eleifend. Quisque ut eleifend lacus.
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima culpa dignissimos ea dolorem similique nobis odit praesentium nemo, quis soluta.
                 </p>
                 <ul class="tm-social pl-0 mb-0">
                     <li><a href="https://facebook.com"><i class="fab fa-facebook"></i></a></li>
@@ -102,7 +93,7 @@
                 <h2 class="tm-text-primary mb-4">Johnny Brief</h2>
                 <h3 class="tm-text-secondary h5 mb-4">Accounting Executive</h3>
                 <p class="mb-4">
-                    Sed faucibus nec velit finibus accumsan. Sed varius augue et leo pharetra, in varius lacus eleifend. Quisque ut eleifend lacus.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, eligendi itaque. Quos earum ducimus quisquam vitae odit sunt, enim doloribus.
                 </p>
                 <ul class="tm-social pl-0 mb-0">
                     <li><a href="https://facebook.com"><i class="fab fa-facebook"></i></a></li>
@@ -115,7 +106,7 @@
                 <h2 class="tm-text-primary mb-4">George Nelson</h2>
                 <h3 class="tm-text-secondary h5 mb-4">Creative Art Director #C69</h3>
                 <p class="mb-4">
-                    Nunc convallis facilisis congue. Curabitur gravida rutrum justo sed pulvinar. Pellentesque ac ante in erat bibendum dignissim.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum dolore odit ratione quis reprehenderit nemo, perferendis maiores voluptas totam nostrum!
                 </p>
                 <ul class="tm-social pl-0 mb-0">
                     <li><a href="https://facebook.com"><i class="fab fa-facebook"></i></a></li>

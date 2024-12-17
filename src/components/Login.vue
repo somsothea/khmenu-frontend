@@ -2,10 +2,11 @@
     <div class="container-fluid tm-mt-60">
         <div class="row tm-mb-50">
             <div class="col-lg-4 col-12 mb-5">
-                             
+                          
             </div>
             <div class="col-lg-4 col-12 mb-5">
                 <main class="form-signin w-100 m-auto">
+                  <center><h2>Login</h2></center>
                   <form @submit.prevent="handleLogin">
                     <div class="form-group">
                       <label for="username">Username:</label>
@@ -74,8 +75,8 @@ export default {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
 
-        alert("Login successful!");
-        this.$router.push("/myaccount"); // Navigate to a dashboard or home page
+        // Redirect to /myaccount
+        this.$router.push("/myaccount");
       } catch (error) {
         this.errorMessage =
           error.response?.data?.message || "Login failed. Try again.";
@@ -83,12 +84,35 @@ export default {
         this.isLoading = false;
       }
     },
+    async verifyToken(token) {
+      try {
+        const response = await axios.get("/v1/auth/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        return response.status === 200; // Token is valid if response status is 200
+      } catch (error) {
+        console.error("Token verification failed:", error.response?.data || error.message);
+        return false; // Token is invalid
+      }
+    },
     goToSignUp() {
       this.$router.push("/register");
     },
   },
+  async created() {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      const isValid = await this.verifyToken(accessToken);
+      if (isValid) {
+        this.$router.push("/myaccount");
+      }
+    }
+  },
 };
 </script>
+
 
 <style scoped>
 .login-container {

@@ -5,7 +5,7 @@
         <h1 class="text-center">User's Profile</h1>
         <div v-if="user" class="card shadow-sm">
           <div class="card-body">
-            <!--<p><strong>ID:</strong> {{ user._id }}</p>-->
+            <p><strong>ID:</strong> {{ user._id }}</p>
             <p><strong>Username:</strong> {{ user.username }}</p>
             <p><strong>First Name:</strong> {{ user.firstname }}</p>
             <p><strong>Last Name:</strong> {{ user.lastname }}</p>
@@ -13,6 +13,7 @@
             <p><strong>Account Type:</strong> {{ user.type }}</p>
             <p><strong>Permission:</strong> {{ user.permission }}</p>
             <p><strong>Created Date:</strong> {{ formatDate(user.createdDate) }}</p>
+            <p> <button class="btn btn-danger" @click="logout">Logout</button></p>
           </div>
         </div>
         <div v-else class="text-center mt-3">
@@ -36,6 +37,7 @@
                 <p><strong>Address:</strong> {{ store.storeaddress }}</p>
                 <p><strong>Category:</strong> {{ store.category }}</p>
                 <p><strong>Created Date:</strong> {{ formatDate(store.createdDate) }}</p>
+               
                 <a :href="'/' + store.storeurl" class="btn btn-primary" target="_blank">Visit Store</a>
               </div>
             </div>
@@ -84,13 +86,20 @@ export default {
         console.error('Error fetching user data:', error.response?.data || error.message);
       }
     },
+    async logout(){
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    this.user = null;
+    this.$router.push('/login');
+    },
     async fetchStores() {
       try {
         // Corrected string interpolation
-        const response = await axios.get(`/v1/mystores/user/${this.user._id}`);
+        const response = await axios.get('/v1/mystores/user/${this.user._id}');
+        console.log(this.user._id);
         // Bind stores data
         this.stores = response.data;
-        console.log(this.stores);
+        console.log(this.response);
       } catch (error) {
         console.error('Error fetching stores:', error.response?.data || error.message);
       }

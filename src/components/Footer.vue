@@ -31,7 +31,7 @@
                     Copyright 2024 KHmenu.Cloud. All rights reserved.
                 </div>
                 <div class="col-lg-4 col-md-5 col-12 px-5 text-right">
-                    Designed by <a href="https://khlink.cloud" class="tm-text-gray" rel="sponsored" target="_blank">KHLink.CLoud</a>
+                    Designed by <a href="#" class="tm-text-gray" rel="sponsored" target="_blank">KHmenu.CLoud</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-5">
-      <h2>Register</h2>
+      <center><h2>Register</h2></center>
       <form @submit.prevent="registerUser">
         <div class="mb-3">
           <label for="firstname" class="form-label">First Name</label>
@@ -57,11 +57,13 @@
             required
           />
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Register</button>&nbsp;
+        <button type="button" class="btn btn-primary" @click="goToLogin">Login</button>
         <div v-if="message" class="mt-3 alert" :class="{'alert-success': success, 'alert-danger': !success}">
           {{ message }}
         </div>
       </form>
+      <br/>
     </div>
   </template>
   
@@ -83,6 +85,9 @@
       };
     },
     methods: {
+      goToLogin() {
+      this.$router.push('/login'); // Navigates to the /login route
+    },
       async registerUser() {
         try {
           // Send data to your API
