@@ -91,7 +91,7 @@
       async registerUser() {
         try {
           // Send data to your API
-          const response = await axios.post('http://localhost:4000/v1/auth/sign-up', this.form);
+          const response = await axios.post('/v1/auth/sign-up', this.form);
           this.success = true;
           this.message = 'Registration successful!';
           setTimeout(() => {

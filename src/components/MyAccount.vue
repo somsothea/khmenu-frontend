@@ -94,12 +94,16 @@ export default {
     },
     async fetchStores() {
       try {
+        console.log("Run store");
         // Corrected string interpolation
-        const response = await axios.get('/v1/mystores/user/${this.user._id}');
+        const url = `/v1/mystores/user/${this.user._id}`;
+        console.log(url);
+        const response = await axios.get(url);
+        
         console.log(this.user._id);
         // Bind stores data
         this.stores = response.data;
-        console.log(this.response);
+        console.log(this.stores);
       } catch (error) {
         console.error('Error fetching stores:', error.response?.data || error.message);
       }
