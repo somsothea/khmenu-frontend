@@ -1,11 +1,10 @@
 <template>
-  <div class="container mt-4">
+  <div class="container-lg">
     <div class="row">
       <div class="col-12">
         <h1 class="text-center">User's Profile</h1>
         <div v-if="user" class="card shadow-sm">
           <div class="card-body">
-            <p><strong>ID:</strong> {{ user._id }}</p>
             <p><strong>Username:</strong> {{ user.username }}</p>
             <p><strong>First Name:</strong> {{ user.firstname }}</p>
             <p><strong>Last Name:</strong> {{ user.lastname }}</p>
@@ -13,7 +12,7 @@
             <p><strong>Account Type:</strong> {{ user.type }}</p>
             <p><strong>Permission:</strong> {{ user.permission }}</p>
             <p><strong>Created Date:</strong> {{ formatDate(user.createdDate) }}</p>
-            <p> <button class="btn btn-danger" @click="logout">Logout</button></p>
+            <p><button class="btn btn-danger" @click="logout">Logout</button></p>
           </div>
         </div>
         <div v-else class="text-center mt-3">
@@ -23,28 +22,75 @@
     </div>
 
     <div class="row mt-5">
-      <div class="col-12">
+      <div class="col-12 d-flex justify-content-between align-items-center">
         <h1 class="text-center">User's Stores</h1>
-        <div v-if="stores.length" class="row g-4">
-          <div v-for="store in stores" :key="store._id" class="col-md-4">
-            <div class="card h-100 shadow-sm">
-              <img :src="store.storebanner" class="card-img-top" alt="Store Banner">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <img :src="store.storelogo" class="rounded-circle me-3" alt="Store Logo" style="width: 50px; height: 50px;">
-                  <h5 class="card-title mb-0">{{ store.storename }}</h5>
-                </div>
-                <p><strong>Address:</strong> {{ store.storeaddress }}</p>
-                <p><strong>Category:</strong> {{ store.category }}</p>
-                <p><strong>Created Date:</strong> {{ formatDate(store.createdDate) }}</p>
-               
-                <a :href="'/' + store.storeurl" class="btn btn-primary" target="_blank">Visit Store</a>
+        <button class="btn btn-success" @click="openAddStoreModal">Add New Store</button>
+      </div>
+      <div v-if="stores.length" class="row g-4 mt-3">
+        <div v-for="store in stores" :key="store._id" class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <img :src="store.storebanner" class="card-img-top" alt="Store Banner">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-3">
+                <img :src="store.storelogo" class="rounded-circle me-3" alt="Store Logo" style="width: 50px; height: 50px;">
+                &nbsp;<h5 class="card-title mb-0">{{ store.storename }}</h5>
               </div>
+              <p><strong>Address:</strong> {{ store.storeaddress }}</p>
+              <p><strong>Category:</strong> {{ store.category }}</p>
+              <p><strong>Created Date:</strong> {{ formatDate(store.createdDate) }}</p>
+              <center>
+                <a :href="'/' + store.storeurl" class="btn btn-primary" target="_blank">Visit Store</a>
+                <div class="mt-3 text-center">
+                  <QRCode :value="store.storeurl" />
+                  <p>Scan to visit the store</p>
+                </div>
+              </center>
             </div>
           </div>
         </div>
-        <div v-else class="text-center mt-3">
-          <p>No stores found for this user.</p>
+      </div>
+      <div v-else class="text-center mt-3">
+        <p>No stores found for this user.</p>
+      </div>
+    </div>
+    <br />
+    <!-- Add Store Modal -->
+    <div v-if="isAddStoreModalOpen" class="modal d-block" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add New Store</h5>
+            <button type="button" class="btn-close" @click="closeAddStoreModal"></button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="addStore">
+              <div class="mb-3">
+                <label for="storename" class="form-label">Store Name</label>
+                <input v-model="newStore.storename" type="text" class="form-control" id="storename" required>
+              </div>
+              <div class="mb-3">
+                <label for="storeaddress" class="form-label">Address</label>
+                <input v-model="newStore.storeaddress" type="text" class="form-control" id="storeaddress" required>
+              </div>
+              <div class="mb-3">
+                <label for="storelogo" class="form-label">Logo URL</label>
+                <input v-model="newStore.storelogo" type="url" class="form-control" id="storelogo" required>
+              </div>
+              <div class="mb-3">
+                <label for="storebanner" class="form-label">Banner URL</label>
+                <input v-model="newStore.storebanner" type="url" class="form-control" id="storebanner" required>
+              </div>
+              <div class="mb-3">
+                <label for="storeurl" class="form-label">Store URL</label>
+                <input v-model="newStore.storeurl" type="text" class="form-control" id="storeurl" required>
+              </div>
+              <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input v-model="newStore.category" type="text" class="form-control" id="category" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Add Store</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -52,89 +98,165 @@
 </template>
 
 <script>
-import axios from 'axios';
+import QRCode from '@chenfengyuan/vue-qrcode';
+import axiosInstance from '@/axios/axios.js';
 
 export default {
+  components: { QRCode },
   data() {
     return {
       user: null, // Holds user data
       stores: [], // Holds store data
+      isAddStoreModalOpen: false, // Controls modal visibility
+      newStore: {
+        storename: '',
+        storeaddress: '',
+        storelogo: '',
+        storebanner: '',
+        storeurl: '',
+        category: '',
+      },
     };
   },
   methods: {
     async fetchUserData() {
       try {
-        // Get the accessToken from localStorage
-        const accessToken = localStorage.getItem('accessToken');
-        if (!accessToken) {
-          throw new Error('Access token not found in local storage.');
-        }
-
-        // Make API request to fetch user data
-        const response = await axios.get('v1/auth/me', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // Include token in header
-          },
-        });
-
-        // Bind user data
+        const response = await axiosInstance.get('auth/me');
         this.user = response.data;
-
-        // Fetch stores once user data is available
         this.fetchStores();
       } catch (error) {
         console.error('Error fetching user data:', error.response?.data || error.message);
       }
     },
-    async logout(){
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    this.user = null;
-    this.$router.push('/login');
+    async logout() {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      this.user = null;
+      this.$router.push('/login');
     },
     async fetchStores() {
       try {
-        console.log("Run store");
-        // Corrected string interpolation
-        const url = `/v1/mystores/user/${this.user._id}`;
-        console.log(url);
-        const response = await axios.get(url);
-        
-        console.log(this.user._id);
-        // Bind stores data
-        this.stores = response.data;
-        console.log(this.stores);
+        const response = await axiosInstance.get(`mystores/user/${this.user._id}`);
+        this.stores = response.data.docs;
+        // Generate QR codes for each store
+        for (const store of this.stores) {
+          store.qrCode = await this.generateQRCode(store.storeurl);
+        }
       } catch (error) {
         console.error('Error fetching stores:', error.response?.data || error.message);
       }
     },
+    async addStore() {
+      try {
+        this.newStore.userid = this.user._id;
+        const response = await axiosInstance.post('mystores', this.newStore);
+        this.stores.push(response.data); // Add the new store to the list
+        await this.fetchStores();
+        this.closeAddStoreModal(); // Close the modal
+      } catch (error) {
+        console.error('Error adding store:', error.response?.data || error.message);
+      }
+    },
+    async generateQRCode(url) {
+      try {
+        return await QRCode.toDataURL(url);
+      } catch (error) {
+        console.error('Error generating QR code:', error.message);
+        return null;
+      }
+    },
+    openAddStoreModal() {
+      this.isAddStoreModalOpen = true;
+    },
+    closeAddStoreModal() {
+      this.isAddStoreModalOpen = false;
+      this.resetNewStoreForm();
+    },
+    resetNewStoreForm() {
+      this.newStore = {
+        storename: '',
+        storeaddress: '',
+        storelogo: '',
+        storebanner: '',
+        storeurl: '',
+        category: '',
+      };
+    },
     formatDate(dateString) {
-      // Format ISO date to a readable format
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(dateString).toLocaleDateString(undefined, options);
     },
   },
   created() {
-    // Fetch user data when the component is created
     this.fetchUserData();
   },
 };
 </script>
 
-<style scoped>
+<style>
 .container {
   font-family: Arial, sans-serif;
+  padding: 0 15px;
 }
+
 .card {
   border-radius: 10px;
   overflow: hidden;
 }
+
 .card-img-top {
   height: 150px;
   object-fit: cover;
 }
+
 .card-title {
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-dialog {
+  max-width: 100%; /* Full width for small screens */
+  margin: 0 15px; /* Add some margin for spacing */
+}
+
+.modal-content {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 15px; /* Add spacing between cards */
+  }
+
+  .card .card-body {
+    padding: 15px;
+  }
+
+  .modal-dialog {
+    width: 100%; /* Ensure modal takes full width */
+    margin: 10px; /* Slight margin on small screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .card-title {
+    font-size: 1rem; /* Adjust title size for smaller screens */
+  }
+
+  .card-img-top {
+    height: 120px; /* Reduce image height for small screens */
+  }
+
+  .modal-dialog {
+    margin: 5px; /* Minimal margin on very small screens */
+  }
 }
 </style>
