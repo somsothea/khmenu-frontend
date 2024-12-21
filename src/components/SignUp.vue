@@ -69,6 +69,7 @@
         />
         <div v-if="captcha.error" class="text-danger mt-2">{{ captcha.error }}</div>
       </div>
+      <div class="mb-3"><center>
       <button
         type="submit"
         class="btn btn-primary"
@@ -79,7 +80,8 @@
       &nbsp;
       <button type="button" class="btn btn-primary" @click="goToLogin">
         Login
-      </button>
+      </button></center>
+    </div>
       <div
         v-if="message"
         class="mt-3 alert"
@@ -153,27 +155,11 @@ export default {
         this.success = true;
         this.message = 'Registration successful!';
         setTimeout(() => {
-          this.$router.push('/myaccount');
-        }, 1500);
-      } catch (error) {
-        this.success = false;
-        this.message = error.response?.data?.message || 'An error occurred during registration.';
-      }
-    },
-    async loginUser() {
-      try {
-        const response = await axios.post('/v1/auth/sign-in', {
-          email: this.form.email,
-          password: this.form.password,
-        });
-        this.success = true;
-        this.message = 'Register successful!';
-        setTimeout(() => {
           this.$router.push('/login');
         }, 1500);
       } catch (error) {
         this.success = false;
-        this.message = error.response?.data?.message || 'Login failed. Please try again.';
+        this.message = error.response?.data?.message || 'An error occurred during registration.';
       }
     },
   },

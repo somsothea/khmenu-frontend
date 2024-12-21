@@ -1,7 +1,7 @@
 <template>
   <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6 mb-5 tm-item">
     <figure class="effect-ming tm-video-item" @click="showLightbox">
-      <img :src="cover || 'https://picsum.photos/400/250?grocery'" alt="Image" class="img-fluid">
+      <img :src="itemimage" alt="Image" class="img-fluid">
       <figcaption class="d-flex align-items-center justify-content-center">         
         <h3>{{ title }}</h3>
       </figcaption>                    
@@ -14,7 +14,7 @@
     <!-- Lightbox Modal -->
     <div v-if="isLightboxVisible" class="lightbox-overlay" @click="closeLightbox">
       <div class="lightbox-content">
-        <img :src="cover || 'https://picsum.photos/400/250?grocery'" alt="Image" class="img-fluid" width="100%">
+        <img :src="itemimage" alt="Image" class="img-fluid" width="100%">
         <div class="lightbox-caption">
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
@@ -26,7 +26,7 @@
 </template>
 <script>
 export default {
-  props: ["id", "price", "title", "category", "page", "description", "cover"],
+  props: ["id", "price", "title", "category", "page", "description", "cover","itemimage"],
   data() {
     return {
       isLightboxVisible: false, // State to control lightbox visibility

@@ -24,10 +24,9 @@ const routes = [
     { path: '/items/:id', component: Item },
     { path: '/stores', component: Store, children:[
       {path: '', component: Stores},
-      {path: ':id', component: StoreDetail}
+      {path: ':storeurl', component: StoreDetail}
     ] },
-
-    { path: '/mystores', component: MyStore },
+    { path: '/mystore/:id', component: MyStore},
     { path: '/myaccount', component: MyAccount },
     { path: '/term', component: Terms },
     { path: '/privacy', component: Privacy },

@@ -39,7 +39,8 @@
               <p><strong>Category:</strong> {{ store.category }}</p>
               <p><strong>Created Date:</strong> {{ formatDate(store.createdDate) }}</p>
               <center>
-                <a :href="'/' + store.storeurl" class="btn btn-primary" target="_blank">Visit Store</a>
+                <!-- <a :href="'/mystore/' + store._id" class="btn btn-primary" target="_blank">View Store</a> -->
+                <router-link :to="`/mystore/${store._id}`" class="btn btn-primary">View Store</router-link>
                 <div class="mt-3 text-center">
                   <QRCode :value="store.storeurl" />
                   <p>Scan to visit the store</p>
@@ -77,7 +78,7 @@
                 <input v-model="newStore.storelogo" type="url" class="form-control" id="storelogo" required>
               </div>
               <div class="mb-3">
-                <label for="storebanner" class="form-label">Banner URL</label>
+                <label for="storebanner" class="form-label">Store Banner URL</label>
                 <input v-model="newStore.storebanner" type="url" class="form-control" id="storebanner" required>
               </div>
               <div class="mb-3">
@@ -85,8 +86,25 @@
                 <input v-model="newStore.storeurl" type="text" class="form-control" id="storeurl" required>
               </div>
               <div class="mb-3">
+                <label for="storedescription" class="form-label">Store Description</label>
+                <input v-model="newStore.storedescription" type="text" class="form-control" id="storedescription" required>
+              </div>
+              <div class="mb-3">
+                <label for="storecontact" class="form-label">Store Contact</label>
+                <input v-model="newStore.storecontact" type="text" class="form-control" id="storecontact" required>
+              </div>
+              <div class="mb-3">
+                <label for="storetelegram" class="form-label">Store Telegram / Web</label>
+                <input v-model="newStore.storetelegram" type="text" class="form-control" id="storetelegram">
+              </div>
+              <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
-                <input v-model="newStore.category" type="text" class="form-control" id="category" required>
+                <select v-model="newStore.category" class="form-control" id="category" required>
+                <option value="" disabled>Select a category</option>
+                <option v-for="(type, index) in storeTypes" :key="index" :value="type">
+                  {{ type }}
+                </option>
+              </select>
               </div>
               <button type="submit" class="btn btn-primary">Add Store</button>
             </form>
@@ -108,12 +126,16 @@ export default {
       user: null, // Holds user data
       stores: [], // Holds store data
       isAddStoreModalOpen: false, // Controls modal visibility
+      storeTypes: ["Restaurant","Street Foods","Online Store","Retail Store","Furniture","Home Decor","Electronic","Others"],
       newStore: {
         storename: '',
         storeaddress: '',
         storelogo: '',
         storebanner: '',
         storeurl: '',
+        storedescription: '',
+        storecontact: '',
+        storetelegram: '',
         category: '',
       },
     };
@@ -167,9 +189,11 @@ export default {
     },
     openAddStoreModal() {
       this.isAddStoreModalOpen = true;
+      document.body.classList.add('modal-open'); // Disable body scrolling
     },
     closeAddStoreModal() {
       this.isAddStoreModalOpen = false;
+      document.body.classList.remove('modal-open'); // Re-enable body scrolling
       this.resetNewStoreForm();
     },
     resetNewStoreForm() {
@@ -179,6 +203,9 @@ export default {
         storelogo: '',
         storebanner: '',
         storeurl: '',
+        storedescription: '',
+        storecontact: '',
+        storetelegram: '',
         category: '',
       };
     },
@@ -194,6 +221,10 @@ export default {
 </script>
 
 <style>
+body.modal-open {
+  overflow-y: hidden;
+}
+
 .container {
   font-family: Arial, sans-serif;
   padding: 0 15px;
@@ -215,10 +246,17 @@ export default {
 }
 
 .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; /* Enable scrolling within the modal */
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1050;
 }
 
 .modal-dialog {

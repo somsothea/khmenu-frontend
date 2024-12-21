@@ -3,7 +3,7 @@
                 <figure class="effect-ming tm-video-item">
                     <img :src="storebanner" alt="Image" class="img-fluid" height="250" width="400"/>
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h3>{{ storename }}</h3><router-link :to="`/stores/${id}`">{{ storename }}</router-link>
+                        <h3>{{ storename }}</h3><router-link :to="`/stores/${storeurl}`">{{ storename }}</router-link>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">

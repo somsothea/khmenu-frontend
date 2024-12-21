@@ -12,6 +12,7 @@
                     :storename="store.storename"
                     :storeaddress="store.storeaddress"
                     :storebanner="store.storebanner"
+                    :storeurl="store.storeurl"
                     :category="store.category">
                 </StoreCard>
         </div> <!-- row -->
@@ -26,7 +27,8 @@
                     :id="item._id"
                     :title="item.title"
                     :description="item.description"
-                    :price="item.price"     
+                    :price="item.price"
+                    :itemimage="item.filename"
                     :category="item.category">
             </ItemCard>
         </div> <!-- row -->

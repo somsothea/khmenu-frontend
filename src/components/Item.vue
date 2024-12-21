@@ -17,7 +17,8 @@
                     :id="item._id"
                     :title="item.title"
                     :description="item.description"
-                    :price="item.price"     
+                    :price="item.price"
+                    :itemimage="item.filename"      
                     :category="item.category">
                 </ItemCard>
     
