@@ -42,7 +42,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style>
 .lightbox-overlay {
   position: fixed;
   top: 0;

@@ -13,19 +13,19 @@
             <img :src="store?.storelogo || 'https://via.placeholder.com/100'" alt="Logo" class="img-fluid">
           </div>
           <div class="mb-4">
-            <h3 class="tm-text-gray-dark mb-3">Description</h3>
+            <h5 class="tm-text-gray-dark mb-3">Description</h5>
             <p>{{ store?.storedescription || 'No description available' }}</p>
           </div>                    
           <div class="mb-4">
-            <h3 class="tm-text-gray-dark mb-3">Address</h3>
+            <h5 class="tm-text-gray-dark mb-3">Address</h5>
             <p>{{ store?.storeaddress || 'No address available' }}</p>
           </div>
           <div>
-            <h3 class="tm-text-gray-dark mb-3">Contact</h3>
+            <h5 class="tm-text-gray-dark mb-3">Contact</h5>
             <p>{{ store?.storecontact || 'No contact available' }}</p>
           </div>
           <div>
-            <h3 class="tm-text-gray-dark mb-3">Telergam / Social Link</h3>
+            <h5 class="tm-text-gray-dark mb-3">Telergam / Social Link</h5>
             <p>{{ store?.storetelegrm || 'No socaial link available' }}</p>
           </div>
         </div>

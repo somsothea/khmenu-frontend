@@ -37,3 +37,9 @@
         </div>
     </nav>
 </template>
+
+<style>
+.navbar {
+    background-color: black;
+}
+</style>
